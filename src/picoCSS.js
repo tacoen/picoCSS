@@ -1,10 +1,24 @@
 var p = {
-
     select: function (selector) {
         this.value = Array.prototype.slice.call(document.querySelectorAll(selector));
         return this;
     },
     each: [].forEach,
+    html: function (v) {
+		var g; 
+        this.value = this.each.call(this.value, function (i) {
+            if (v === undefined) { g = i.innerHTML; }
+			else { i.innerHTML=v; g ='' }
+        });
+        return g;
+    },
+    get: function (v) {
+		var g
+        this.value = this.each.call(this.value, function (i) {
+            g = i.getAttribute(v);
+        });
+        return g;
+    },
     css: function (v) {
         this.value = this.each.call(this.value, function (i) {
             i.style.cssText = v;
